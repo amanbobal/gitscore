@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 142 76% 36%;
+    --primary-foreground: 355.7 100% 97.3%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 142 76% 36%;
+    --radius: 0.75rem;
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-gradient-to-br from-background via-background to-secondary min-h-screen text-foreground;
+  }
+}
+
+.glow {
+  box-shadow: 0 0 20px theme('colors.primary.DEFAULT / 20%');
+}
+
+.score-ring {
+  --size: 150px;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  position: relative;
+  background: conic-gradient(theme('colors.primary.DEFAULT') var(--percentage), transparent 0);
+  animation: score-fill 1s ease-out forwards;
+}
+
+.score-ring::before {
+  content: "";
+  position: absolute;
+  width: calc(var(--size) - 15px);
+  height: calc(var(--size) - 15px);
+  background: theme('colors.background');
+  border-radius: 50%;
+}
+
+@keyframes score-fill {
+  from { --percentage: 0%; }
+  to { --percentage: var(--score); }
+}
+
+.stat-card {
+  @apply relative overflow-hidden rounded-xl bg-secondary/50 p-6 transition-all duration-300 hover:scale-105 hover:bg-secondary/70;
+  backdrop-filter: blur(10px);
+}
+
+.stat-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    45deg,
+    transparent 0%,
+    rgba(var(--primary-rgb), 0.1) 50%,
+    transparent 100%
+  );
+  transform: translateX(-100%);
+  transition: transform 0.5s;
+}
+
+.stat-card:hover::before {
+  transform: translateX(100%);
+}
