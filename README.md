@@ -6,7 +6,7 @@
 
 ## Stack Used:
 
-- Nextt.js
+- Next.js
 - TailwindCSS
 - GitHub API
 
